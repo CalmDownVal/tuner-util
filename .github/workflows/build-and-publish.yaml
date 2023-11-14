@@ -4,9 +4,9 @@ on:
     branches: [ master ]
 
 env:
-  APP_NAME: Tuner Tool
-  CONTENT_PATH: tuner-tool
-  ARTIFACT_NAME: tuner-tool-app
+  APP_NAME: Tuner Util
+  CONTENT_PATH: tuner-util
+  ARTIFACT_NAME: tuner-util-app
   PACKAGE_PATH: '.'
 
 jobs:
