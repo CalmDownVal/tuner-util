@@ -1,0 +1,10 @@
+{
+	"root": true,
+	"env": {
+		"browser": true
+	},
+	"extends": [
+		"@calmdownval/eslint-config",
+		"@calmdownval/eslint-config/import"
+	]
+}

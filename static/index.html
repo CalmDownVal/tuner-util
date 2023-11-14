@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="Tuner utility with MIDI, note and frequency conversion.">
+		<meta name="keywords" content="midi,frequency,note,music,production">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+		<meta name="author" content="@CalmDownVal">
+		<link rel="stylesheet" href="style.css">
+		<script src="app.min.js" type="text/javascript"></script>
+		<title>
+			Tuner Utility
+		</title>
+	</head>
+	<body>
+		<section class="layout">
+			<div class="control-panel span-full">
+				<div class="bin-chart-layout canvas-wrapper" id="bin-chart">
+					<canvas></canvas>
+				</div>
+				<button class="button fx-shiny" id="record-button">
+					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 -960 960 960">
+						<path d="M480-400q-50 0-85-35t-35-85v-240q0-50 35-85t85-35q50 0 85 35t35 85v240q0 50-35 85t-85 35Zm0-240Zm-40 520v-123q-104-14-172-93t-68-184h80q0 83 58.5 141.5T480-320q83 0 141.5-58.5T680-520h80q0 105-68 184t-172 93v123h-80Zm40-360q17 0 28.5-11.5T520-520v-240q0-17-11.5-28.5T480-800q-17 0-28.5 11.5T440-760v240q0 17 11.5 28.5T480-480Z"/>
+					</svg>
+				</button>
+				<button class="button fx-shiny" id="ping-button">
+					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 -960 960 960">
+						<path d="M640-440v-80h160v80H640Zm48 280-128-96 48-64 128 96-48 64Zm-80-480-48-64 128-96 48 64-128 96ZM120-360v-240h160l200-200v640L280-360H120Zm280-246-86 86H200v80h114l86 86v-252ZM300-480Z"/>
+					</svg>
+				</button>
+				<div class="bin-chart-layout"></div>
+			</div>
+			<label class="input-wrapper fx-shiny" id="midi-box">
+				<h2 class="input-wrapper__header">
+					MIDI
+				</h2>
+				<input type="text" class="input-wrapper__input" id="midi-input" value="69" maxlength="3" inputMode="decimal">
+			</label>
+			<label class="input-wrapper fx-shiny" id="note-box">
+				<h2 class="input-wrapper__header">
+					note
+				</h2>
+				<input type="text" class="input-wrapper__input" id="note-input" value="A5" maxlength="3">
+			</label>
+			<label class="input-wrapper fx-shiny" id="freq-box">
+				<h2 class="input-wrapper__header">
+					frequency
+				</h2>
+				<input type="text" class="input-wrapper__input" id="freq-input" value="440" maxlength="8" inputMode="decimal">
+				<div class="canvas-wrapper" id="tune-chart">
+					<canvas></canvas>
+				</div>
+			</label>
+			<footer class="page-footer span-full">
+				Tuner Utility
+				&bull;
+				by <a href="https://twitter.com/CalmDownVal" target="_blank">@CalmDownVal</a>
+				&bull;
+				2023
+			</footer>
+		</section>
+	</body>
+</html>

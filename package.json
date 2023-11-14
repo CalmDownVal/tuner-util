@@ -1,0 +1,25 @@
+{
+	"name": "tuner-util",
+	"private": true,
+	"packageManager": "yarn@3.6.4",
+	"scripts": {
+		"build-prod": "rollup --config --environment ENV:prod",
+		"build-dev": "rollup --config --environment ENV:dev",
+		"start": "rollup --config --environment ENV:dev,SERVER --watch",
+		"lint": "eslint --ignore-pattern **/build/* ./src/**/*.js"
+	},
+	"dependencies": {
+		"fft.js": "4.0.4"
+	},
+	"devDependencies": {
+		"@calmdownval/eslint-config": "2.1.4",
+		"@calmdownval/eslint-import-resolver": "1.1.2",
+		"@rollup/plugin-node-resolve": "15.2.3",
+		"@rollup/plugin-terser": "0.4.4",
+		"eslint": "8.51.0",
+		"eslint-plugin-import": "2.28.1",
+		"rollup": "4.4.1",
+		"rollup-plugin-delete": "2.0.0",
+		"rollup-plugin-serve": "2.0.2"
+	}
+}

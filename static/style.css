@@ -1,0 +1,223 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400&display=swap');
+
+* {
+	padding: 0;
+	margin: 0;
+	font: inherit;
+	color: inherit;
+	cursor: inherit;
+}
+
+html {
+	-webkit-text-size-adjust: 100%;
+}
+
+body {
+	font-family: 'Raleway', sans-serif;
+	font-weight: 400;
+	user-select: none;
+	background: #32322c;
+	color: #fff;
+	cursor: default;
+}
+
+a {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.layout {
+	position: fixed;
+	inset: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	align-content: flex-start;
+	gap: 1rem;
+	padding: 2rem 1rem;
+	overflow-y: auto;
+	background: linear-gradient(350deg, #282823, #48483f);
+}
+
+.control-panel {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+	margin: 0 0 2rem 0;
+}
+
+.page-footer {
+	box-sizing: border-box;
+	margin: 2rem 0 0 0;
+	text-align: center;
+	color: rgba(255, 255, 255, .7);
+}
+
+@property --fx-offset-x {
+	syntax: '<percentage>';
+	initial-value: 50%;
+	inherits: false;
+}
+
+@property --fx-offset-y {
+	syntax: '<percentage>';
+	initial-value: 50%;
+	inherits: false;
+}
+
+@property --fx-opacity {
+	syntax: '<number>';
+	initial-value: 1;
+	inherits: false;
+}
+
+.fx-shiny {
+	--color: hsl(0, 75%, 63%);
+	--color-light: hsl(0, 76%, 72%);
+	--color-dark: hsl(0, 58%, 57%);
+
+	box-sizing: border-box;
+	display: block;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, .3);
+	border: 2px solid transparent;
+	outline: none;
+	cursor: pointer;
+	color: #000;
+	background:
+		radial-gradient(circle at var(--fx-offset-x) var(--fx-offset-y), rgba(255, 255, 255, .2), rgba(255, 255, 255, 0)) no-repeat 0% 0% / 100% 100% border-box,
+		linear-gradient(350deg, var(--color-dark), var(--color-light)) no-repeat 0% 0% / 100% 100% padding-box,
+		radial-gradient(circle at var(--fx-offset-x) var(--fx-offset-y), rgba(255, 255, 255, var(--fx-opacity)), rgba(255, 255, 255, 0)) no-repeat 0% 0% / 100% 100% border-box,
+		linear-gradient(350deg, var(--color-dark), var(--color-light)) no-repeat 0% 0% / 100% 100% border-box;
+	transition:
+		box-shadow 3s linear,
+		--fx-opacity 2s linear;
+}
+
+.fx-shiny:focus-within,
+.button.button--active {
+	--fx-opacity: 0;
+	z-index: 200;
+	box-shadow: 0 0 60px 5px var(--color);
+	transition:
+		box-shadow .3s linear,
+		--fx-opacity .3s linear;
+}
+
+.button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 4rem;
+	height: 4rem;
+	border-radius: 100%;
+}
+
+.input-wrapper {
+	flex-basis: 30%;
+	position: relative;
+	z-index: 100;
+	min-height: 10rem;
+	max-height: 10rem;
+	border-radius: .3rem;
+}
+
+.input-wrapper:has(.input-wrapper__input:disabled) {
+	cursor: no-drop;
+}
+
+.input-wrapper__header,
+.input-wrapper__error {
+	position: absolute;
+	inset: 2rem 0 auto 2rem;
+	font-size: 1.2rem;
+}
+
+.input-wrapper__error {
+	text-shadow:
+		0 0 16px #f25f5c,
+		0 0 12px #f25f5c,
+		0 0 8px #f25f5c;
+}
+
+.input-wrapper__error ~ .input-wrapper__header {
+	display: none;
+}
+
+.input-wrapper__input {
+	position: absolute;
+	inset: auto 2rem 2rem 0;
+	border: none;
+	padding: 0;
+	width: auto;
+	outline: none;
+	font-size: 3rem;
+	text-align: right;
+	background: transparent;
+}
+
+.input-wrapper__input::selection {
+	background: rgba(255, 255, 255, .5);
+}
+
+#midi-box {
+	--color: hsl(206, 100%, 58%);
+	--color-light: hsl(206, 100%, 66%);
+	--color-dark: hsl(206, 100%, 46%);
+}
+
+#note-box {
+	--color: hsl(168, 100%, 48%);
+	--color-light: hsl(168, 100%, 56%);
+	--color-dark: hsl(168, 100%, 36%);
+}
+
+#freq-box {
+	--color: hsl(48, 100%, 70%);
+	--color-light: hsl(48, 100%, 76%);
+	--color-dark: hsl(48, 100%, 56%);
+}
+
+.canvas-wrapper {
+	overflow: hidden;
+}
+
+#tune-chart {
+	position: absolute;
+	inset: auto 2rem 0 2rem;
+	height: 2rem;
+	-webkit-mask: linear-gradient(black, transparent);
+	        mask: linear-gradient(black, transparent);
+}
+
+#bin-chart {
+	-webkit-mask: linear-gradient(transparent 0%, black 30%, black 70%, transparent 100%);
+	        mask: linear-gradient(transparent 0%, black 30%, black 70%, transparent 100%);
+}
+
+.bin-chart-layout {
+	width: 3rem;
+	height: 2.5rem;
+}
+
+@media (min-width: 600px) {
+	.layout {
+		flex-flow: row wrap;
+		align-content: center;
+		justify-content: center;
+	}
+
+	.span-full {
+		flex-basis: 100%;
+	}
+
+	.input-wrapper {
+		max-width: 20rem;
+	}
+}
+
+@media (min-width: 600px) and (max-width: 800px) {
+	.input-wrapper__input {
+		right: 1rem;
+	}
+}
