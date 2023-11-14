@@ -52,10 +52,7 @@ export function createYinPitchDetector({ fMin, fMax, windowSize, windowOffset, t
 			buffer.copyWithin(0, windowOffset);
 			index = windowSize;
 
-			console.time('yin');
 			const pitch = getPitch();
-			console.timeEnd('yin');
-
 			if (pitch > 0) {
 				onPitchAvailable(pitch);
 			}

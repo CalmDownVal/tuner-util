@@ -113,6 +113,10 @@ a {
 	border-radius: 100%;
 }
 
+.icon {
+	fill: #32322c;
+}
+
 .input-wrapper {
 	flex-basis: 30%;
 	position: relative;
@@ -131,6 +135,11 @@ a {
 	position: absolute;
 	inset: 2rem 0 auto 2rem;
 	font-size: 1.2rem;
+}
+
+.input-wrapper__header > .icon {
+	position: relative;
+	top: 0.2rem;
 }
 
 .input-wrapper__error {
