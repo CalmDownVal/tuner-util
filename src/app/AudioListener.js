@@ -1,7 +1,7 @@
 export class AudioListener {
+	isEnabled = false;
 	#ctx;
 	#worklet;
-	#isEnabled = false;
 
 	constructor(ctx, worklet, callbacks) {
 		this.#ctx = ctx;
@@ -9,17 +9,17 @@ export class AudioListener {
 
 		worklet.port.start();
 		worklet.port.addEventListener('message', e => {
-			if (this.#isEnabled) {
+			if (this.isEnabled) {
 				callbacks[e.data.kind]?.(e.data.value);
 			}
 		});
 	}
 
-	setEnabled(value) {
-		this.#isEnabled = value;
+	toggleEnabled(value) {
+		this.isEnabled = typeof value === 'boolean' ? value : !this.isEnabled;
 		this.#worklet.port.postMessage({
 			kind: 'enable',
-			value: value
+			value: this.isEnabled
 		});
 	}
 

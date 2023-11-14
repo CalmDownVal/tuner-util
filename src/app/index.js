@@ -165,7 +165,8 @@ window.addEventListener('DOMContentLoaded', () => {
 	const recordButton = document.getElementById('record-button');
 	recordButton.addEventListener('click', async () => {
 		const listener = await getOrCreateListener();
-		listener.setEnabled(!listener.isEnabled);
+		listener.toggleEnabled();
+
 		setInputsDisabled(listener.isEnabled);
 		recordButton.classList.toggle('button--active', listener.isEnabled);
 		if (!listener.isEnabled) {
