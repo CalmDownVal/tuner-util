@@ -6,7 +6,7 @@
 		"build-prod": "rollup --config --environment ENV:prod",
 		"build-dev": "rollup --config --environment ENV:dev",
 		"start": "rollup --config --environment ENV:dev,SERVER --watch",
-		"lint": "eslint --ignore-pattern **/build/* ./src/**/*.js"
+		"lint": "eslint ./src/**/*.js"
 	},
 	"dependencies": {
 		"fft.js": "4.0.4"

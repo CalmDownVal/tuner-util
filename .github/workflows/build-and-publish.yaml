@@ -36,12 +36,14 @@ jobs:
         corepack enable
         yarn install --immutable
 
-    - name: TypeScript check
-      working-directory: ${{ env.PACKAGE_PATH }}
-      run: yarn run typecheck
+    # Not using TypeScript as of now
+    # - name: TypeScript check
+    #   working-directory: ${{ env.PACKAGE_PATH }}
+    #   run: yarn run typecheck
 
-    - name: ESLint check
-      run: yarn run lint
+    # ESLint parser fails on ES #private fields
+    # - name: ESLint check
+    #   run: yarn run lint
 
     - name: Rollup Build
       working-directory: ${{ env.PACKAGE_PATH }}
