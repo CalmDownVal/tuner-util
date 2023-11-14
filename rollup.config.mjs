@@ -1,6 +1,7 @@
 /* eslint-env node */
 /* eslint-disable import/no-default-export */
 
+import commonjs from '@rollup/plugin-commonjs';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import terser from '@rollup/plugin-terser';
 import deleteBeforeBuild from 'rollup-plugin-delete';
@@ -27,6 +28,7 @@ const config = {
 			runOnce: true,
 			targets: `${outDir}/*`
 		}),
+		commonjs(),
 		nodeResolve({
 			browser: true,
 			preferBuiltins: false

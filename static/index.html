@@ -15,7 +15,7 @@
 	<body>
 		<section class="layout">
 			<div class="control-panel span-full">
-				<div class="bin-chart-layout canvas-wrapper" id="bin-chart">
+				<div class="canvas-wrapper" id="bin-chart">
 					<canvas></canvas>
 				</div>
 				<button class="button fx-shiny" id="record-button">
@@ -28,7 +28,6 @@
 						<path d="M640-440v-80h160v80H640Zm48 280-128-96 48-64 128 96-48 64Zm-80-480-48-64 128-96 48 64-128 96ZM120-360v-240h160l200-200v640L280-360H120Zm280-246-86 86H200v80h114l86 86v-252ZM300-480Z"/>
 					</svg>
 				</button>
-				<div class="bin-chart-layout"></div>
 			</div>
 			<label class="input-wrapper fx-shiny" id="midi-box">
 				<h2 class="input-wrapper__header">
@@ -37,7 +36,9 @@
 					</svg>
 					MIDI
 				</h2>
-				<input type="text" class="input-wrapper__input" id="midi-input" value="69" maxlength="3" inputMode="decimal">
+				<div class="input-wrapper__input-frame">
+					<input type="text" class="input-wrapper__input" id="midi-input" value="69" maxlength="3" inputMode="decimal">
+				</div>
 			</label>
 			<label class="input-wrapper fx-shiny" id="note-box">
 				<h2 class="input-wrapper__header">
@@ -46,7 +47,9 @@
 					</svg>
 					note
 				</h2>
-				<input type="text" class="input-wrapper__input" id="note-input" value="A5" maxlength="3">
+				<div class="input-wrapper__input-frame">
+					<input type="text" class="input-wrapper__input" id="note-input" value="A5" maxlength="3">
+				</div>
 			</label>
 			<label class="input-wrapper fx-shiny" id="freq-box">
 				<h2 class="input-wrapper__header">
@@ -55,19 +58,29 @@
 					</svg>
 					frequency
 				</h2>
-				<input type="text" class="input-wrapper__input" id="freq-input" value="440" maxlength="8" inputMode="decimal">
+				<div class="input-wrapper__input-frame">
+					<input type="text" class="input-wrapper__input" id="freq-input" value="440" maxlength="8" inputMode="decimal">
+				</div>
 				<div class="canvas-wrapper" id="tune-chart">
 					<canvas></canvas>
 				</div>
 			</label>
 			<footer class="page-footer span-full">
-				Tuner Utility
-				&bull;
-				by <a href="https://twitter.com/CalmDownVal" target="_blank">@CalmDownVal</a>
-				&bull;
-				<a href="https://github.com/CalmDownVal/tuner-util/tree/master/licenses" target="_blank">3rd party licenses</a>
-				&bull;
-				2023
+				<dl class="info-crumbs">
+					<dt>
+						Tuner Utility
+					</dt>
+					<dd>
+						by
+						<a href="https://twitter.com/CalmDownVal" target="_blank">@CalmDownVal</a>
+					</dd>
+					<dd>
+						<a href="https://github.com/CalmDownVal/tuner-util/tree/master/licenses" target="_blank">3rd party licenses</a>
+					</dd>
+					<dd>
+						2023
+					</dd>
+				</dl>
 			</footer>
 		</section>
 	</body>

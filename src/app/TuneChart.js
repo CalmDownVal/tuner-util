@@ -28,27 +28,21 @@ export class TuneChart extends CanvasRenderer {
 		ctx.strokeStyle =
 		ctx.fillStyle = this.options.color;
 
-		const p0 = { x: padding, y: this.height };
-		const p1 = { x: this.width / 2, y: r2 + line + padding };
-		const p2 = { x: this.width - padding, y: this.height };
-
-		const offset = p1.x ** 2 + p2.y ** 2;
-		const bc = (p0.x ** 2 + p0.y ** 2 - offset) * 0.5;
-		const cd = (offset - p2.x ** 2 - p2.y ** 2) * 0.5;
-		const det = (p0.x - p1.x) * (p1.y - p2.y) - (p1.x - p2.x) * (p0.y - p1.y);
-		const cx = (bc * (p1.y - p2.y) - cd * (p0.y - p1.y)) / det;
-		const cy = (cd * (p0.x - p1.x) - bc * (p1.x - p2.x)) / det;
-		const r1 = Math.sqrt((p2.x - cx) ** 2 + (p2.y - cy) ** 2);
-		const alpha = Math.asin(1.0 - (this.height - p1.y) / r1);
+		const p1 = [ padding, this.height ];
+		const p2 = [ this.width / 2, r2 + line + padding ];
+		const p3 = [ this.width - padding, this.height ];
+		const center = getCenter(p1, p2, p3);
+		const r1 = center[1] - p2[1];
+		const alpha = Math.asin(1.0 - (this.height - p2[1]) / r1);
 
 		ctx.beginPath();
-		ctx.arc(cx, cy, r1, Math.PI - alpha, alpha, false);
+		ctx.arc(center[0], center[1], r1, Math.PI - alpha, alpha, false);
 		ctx.stroke();
 
-		ctx.clearRect(cx - r2, cy - r1 - r2, 2.0 * r2, 2.0 * r2);
+		ctx.clearRect(center[0] - r2, center[1] - r1 - r2, 2.0 * r2, 2.0 * r2);
 
 		ctx.beginPath();
-		ctx.arc(cx, cy - r1, r2, 0, 2.0 * Math.PI, false);
+		ctx.arc(center[0], center[1] - r1, r2, 0, 2.0 * Math.PI, false);
 		ctx.stroke();
 
 		const delta = this.#target - this.#current;
@@ -63,7 +57,30 @@ export class TuneChart extends CanvasRenderer {
 		const beta = Math.PI / 2 - (Math.PI / 2 - alpha) * this.#current;
 
 		ctx.beginPath();
-		ctx.arc(cx + Math.cos(beta) * r1, cy - Math.sin(beta) * r1, r3, 0, 2.0 * Math.PI);
+		ctx.arc(center[0] + Math.cos(beta) * r1, center[1] - Math.sin(beta) * r1, r3, 0, 2.0 * Math.PI);
 		ctx.fill();
 	}
+}
+
+function getCenter(p1, p2, p3) {
+	const ax = (p1[0] + p2[0]) / 2.0;
+	const ay = (p1[1] + p2[1]) / 2.0;
+	const ux = (p1[1] - p2[1]);
+	const uy = (p2[0] - p1[0]);
+	const bx = (p2[0] + p3[0]) / 2.0;
+	const by = (p2[1] + p3[1]) / 2.0;
+	const vx = (p2[1] - p3[1]);
+	const vy = (p3[0] - p2[0]);
+	const dx = ax - bx;
+	const dy = ay - by;
+	const vu = vx * uy - vy * ux;
+	if (vu == 0) {
+		return null;
+	}
+
+	const g = (dx * uy - dy * ux) / vu;
+	return [
+		bx + g * vx,
+		by + g * vy
+	];
 }

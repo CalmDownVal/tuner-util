@@ -25,8 +25,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	// manual conversion form
 
+	const midiBox = document.getElementById('midi-box');
 	const midiInput = document.getElementById('midi-input');
+	const noteBox = document.getElementById('note-box');
 	const noteInput = document.getElementById('note-input');
+	const freqBox = document.getElementById('freq-box');
 	const freqInput = document.getElementById('freq-input');
 
 	let lastMidi = 69;
@@ -54,7 +57,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			tuneChart.update(freq);
 		}
 		catch (ex) {
-			setError(midiInput, ex.message);
+			setError(midiBox, ex.message);
 		}
 	});
 
@@ -73,7 +76,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			tuneChart.update(freq);
 		}
 		catch (ex) {
-			setError(noteInput, ex.message);
+			setError(noteBox, ex.message);
 		}
 	});
 
@@ -96,7 +99,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			tuneChart.update(freq);
 		}
 		catch (ex) {
-			setError(freqInput, ex.message);
+			setError(freqBox, ex.message);
 		}
 	});
 
@@ -104,21 +107,20 @@ window.addEventListener('DOMContentLoaded', () => {
 		this.setSelectionRange(0, this.value.length);
 	}
 
-	function clearErrors(parent = document) {
-		parent
+	function clearErrors(wrapper = document) {
+		wrapper
 			.querySelectorAll('.input-wrapper__error')
 			.forEach(node => {
 				node.parentNode.removeChild(node);
 			});
 	}
 
-	function setError(inputNode, text) {
-		const parent = inputNode.parentNode;
-		clearErrors(parent);
+	function setError(wrapper, text) {
+		clearErrors(wrapper);
 		const node = document.createElement('span');
 		node.classList.add('input-wrapper__error');
 		node.textContent = text;
-		parent.insertBefore(node, parent.firstChild);
+		wrapper.insertBefore(node, wrapper.firstChild);
 	}
 
 	function clampMidi(midi) {
