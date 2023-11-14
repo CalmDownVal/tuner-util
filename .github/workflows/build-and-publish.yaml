@@ -1,0 +1,98 @@
+name: Build and Publish
+on:
+  push:
+    branches: [ master ]
+
+env:
+  APP_NAME: Tuner Tool
+  CONTENT_PATH: tuner-tool
+  ARTIFACT_NAME: tuner-tool-app
+  PACKAGE_PATH: '.'
+
+jobs:
+  verify_and_build:
+    name: Verify and Build
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout the repository
+      uses: actions/checkout@v3
+
+    - name: Setup NodeJS
+      uses: actions/setup-node@v3
+      with:
+        node-version: 19.4.0
+
+    - name: Setup Yarn cache
+      uses: actions/cache@v3
+      with:
+        path: .yarn/cache
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-yarn-
+
+    - name: Install dependencies
+      run: |
+        corepack enable
+        yarn install --immutable
+
+    - name: TypeScript check
+      working-directory: ${{ env.PACKAGE_PATH }}
+      run: yarn run typecheck
+
+    - name: ESLint check
+      run: yarn run lint
+
+    - name: Rollup Build
+      working-directory: ${{ env.PACKAGE_PATH }}
+      run: yarn run build-prod
+
+    - name: Copy static files
+      working-directory: ${{ env.PACKAGE_PATH }}
+      run: cp -r ${{ env.PACKAGE_PATH }}/static/* ${{ env.PACKAGE_PATH }}/build/prod/
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ env.ARTIFACT_NAME }}
+        retention-days: 7
+        path: ${{ env.PACKAGE_PATH }}/build/prod/
+
+  publish_gh_pages:
+    name: Publish to GitHub Pages
+    runs-on: ubuntu-latest
+    needs: verify_and_build
+    steps:
+
+    - name: Checkout the target GitHub pages repository
+      uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.API_TOKEN_GITHUB }}
+        repository: CalmDownVal/CalmDownVal.github.io
+
+    - name: Download build artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: ${{ env.ARTIFACT_NAME }}
+        path: content/${{ env.CONTENT_PATH }}/
+
+    - name: Push the new version
+      run: |
+        git config user.name "${{ env.APP_NAME }} CI"
+        git config user.email github-actions@github.com
+        git add .
+        if git commit -m "publish new ${{ env.APP_NAME }} version"; then git push; fi
+
+  summary:
+    runs-on: ubuntu-latest
+    if: ${{ always() }}
+    needs:
+      - verify_and_build
+      - publish_gh_pages
+    steps:
+
+    - name: Trigger Webhook
+      uses: CalmDownVal/webhook-summary@v1
+      with:
+        token: ${{ github.token }}
+        url: ${{ secrets.WEBHOOK_DISCORD }}
