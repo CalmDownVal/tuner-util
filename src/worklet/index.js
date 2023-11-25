@@ -8,8 +8,8 @@ registerProcessor('listener', SampleProcessor.create(port => [
 		fMin: 50,
 		// 2500Hz ≈ MIDI 99
 		fMax: 2500,
-		windowSize: 2048, // 4096,
-		windowOffset: 512, // 1024,
+		windowSize: 4096,
+		windowOffset: 1024,
 		threshold: 0.3,
 		onPitchAvailable(value) {
 			port.postMessage({
