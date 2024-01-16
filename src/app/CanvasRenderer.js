@@ -2,7 +2,6 @@ export class CanvasRenderer {
 	width = 0;
 	height = 0;
 	options;
-	#wrapper;
 	#canvas;
 	#ctx;
 	#frame;
@@ -10,13 +9,12 @@ export class CanvasRenderer {
 
 	constructor(wrapper, canvas, ctx, options) {
 		this.options = options;
-		this.#wrapper = wrapper;
 		this.#canvas = canvas;
 		this.#ctx = ctx;
 		this.#onRender = time => {
 			this.#frame = undefined;
-			if (this.width === 0 && this.height === 0) {
-				this.updateLayout();
+			if (this.width < Number.EPSILON && this.height < Number.EPSILON) {
+				return;
 			}
 
 			ctx.save();
@@ -24,7 +22,20 @@ export class CanvasRenderer {
 			ctx.translate(0.5, 0.5);
 			this.render?.(ctx, time);
 			ctx.restore();
-		}
+		};
+
+		const ro = new ResizeObserver(entries => {
+			const box = entries[0].contentRect;
+			this.width = Math.floor(box.width * devicePixelRatio);
+			this.height = Math.floor(box.height * devicePixelRatio);
+			this.#canvas.width = this.width;
+			this.#canvas.height = this.height;
+			this.#canvas.style.width = `${box.width}px`;
+			this.#canvas.style.height = `${box.height}px`;
+			this.#onRender();
+		});
+
+		ro.observe(wrapper);
 	}
 
 	clear() {
@@ -33,17 +44,6 @@ export class CanvasRenderer {
 			cancelAnimationFrame(this.#frame);
 			this.#frame = undefined;
 		}
-	}
-
-	updateLayout() {
-		const box = this.#wrapper.getBoundingClientRect();
-		this.width = Math.floor(box.width * devicePixelRatio);
-		this.height = Math.floor(box.height * devicePixelRatio);
-
-		this.#canvas.width = this.width;
-		this.#canvas.height = this.height;
-		this.#canvas.style.width = `${box.width}px`;
-		this.#canvas.style.height = `${box.height}px`;
 	}
 
 	scheduleFrame() {

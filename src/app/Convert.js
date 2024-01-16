@@ -52,11 +52,12 @@ export function noteToMidi(note) {
 }
 
 export function frequencyToMidi(freq, tuning = DEFAULT_TUNING) {
-	return 12 * Math.log(freq / tuning) / Math.LN2 + 69;
+	return Math.round(12.0 * Math.log(freq / tuning) / Math.LN2 + 69.0);
 }
 
 export function midiToNote(midi) {
-	return ETON[midi % 12] + Math.floor(midi / 12 - 1);
+	const safeMidi = Math.trunc(midi);
+	return ETON[safeMidi % 12] + Math.floor(safeMidi / 12 - 1);
 }
 
 export function midiToFrequency(midi, tuning = DEFAULT_TUNING) {

@@ -34,6 +34,11 @@ a:focus {
 		0 0 8px #888;
 }
 
+sup {
+	font-size: .7em;
+	font-weight: 500;
+}
+
 .control-panel {
 	display: grid;
 	grid-template-columns: 1fr auto auto 1fr;
@@ -50,7 +55,6 @@ a:focus {
 	display: flex;
 	flex-flow: column nowrap;
 	align-items: stretch;
-	align-content: flex-start;
 	gap: 1rem;
 	padding: 2rem 1rem;
 	overflow-y: auto;
@@ -139,6 +143,8 @@ a:focus {
 	min-width: 4rem;
 	height: 4rem;
 	border-radius: 100%;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-touch-callout: none;
 }
 
 .icon {
@@ -146,7 +152,6 @@ a:focus {
 }
 
 .input-wrapper {
-	flex-basis: 30%;
 	position: relative;
 	z-index: 100;
 	display: flex;
@@ -169,7 +174,7 @@ a:focus {
 
 .input-wrapper__header > .icon {
 	position: relative;
-	top: 0.2rem;
+	top: .2rem;
 }
 
 .input-wrapper__error {
@@ -201,6 +206,18 @@ a:focus {
 
 .input-wrapper__input::selection {
 	background: rgba(255, 255, 255, .5);
+}
+
+.input-wrapper__approx {
+	position: absolute;
+	inset: auto 1rem 1rem 1rem;
+	text-align: center;
+	opacity: 0;
+	transition: opacity .1s linear;
+}
+
+.input-wrapper--approx > .input-wrapper__approx {
+	opacity: 1;
 }
 
 #midi-box {
@@ -252,6 +269,7 @@ a:focus {
 	}
 
 	.input-wrapper {
+		flex-basis: 30%;
 		max-width: 20rem;
 	}
 }

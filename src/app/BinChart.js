@@ -10,6 +10,10 @@ export class BinChart extends CanvasRenderer {
 
 	render(ctx) {
 		const bins = this.#bins;
+		if (!bins || bins.length === 0) {
+			return;
+		}
+
 		const wStep = this.width / bins.length;
 		const wBin = wStep - 1.0 * devicePixelRatio;
 		const radius = wBin / 2;
