@@ -1,4 +1,4 @@
-export class AudioListener {
+export class MicrophoneListener {
 	isEnabled = false;
 	#ctx;
 	#worklet;
@@ -48,6 +48,6 @@ export class AudioListener {
 		const inputNode = context.createMediaStreamSource(stream);
 		inputNode.connect(worklet);
 
-		return new AudioListener(context, worklet, callbacks);
+		return new MicrophoneListener(context, worklet, callbacks);
 	}
 }

@@ -1,7 +1,7 @@
-import { AudioListener } from './AudioListener';
 import { BinChart } from './BinChart';
 import { CanvasRenderer } from './CanvasRenderer';
 import * as Convert from './Convert';
+import { MicrophoneListener } from './MicrophoneListener';
 import { Ping } from './Ping';
 import { ShineEffect } from './ShineEffect';
 import { TuneChart } from './TuneChart';
@@ -226,26 +226,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	// audio functions
 
-	const recordButton = document.getElementById('record-button');
-	recordButton.addEventListener('click', async () => {
-		const listener = await getOrCreateListener();
-		listener.toggleEnabled();
-
-		setInputsDisabled(listener.isEnabled);
-		recordButton.classList.toggle(CLASS_BUTTON_ACTIVE, listener.isEnabled);
-		if (!listener.isEnabled) {
-			binChart.clear();
-		}
-	});
-
-	const pingButton = document.getElementById('ping-button');
-	pingButton.addEventListener('pointerdown', () => {
-		getOrCreatePing().on(lastFreq);
-	});
-	pingButton.addEventListener('pointerup', () => {
-		getOrCreatePing().off();
-	});
-
 	const bins = new Array(16).fill(0.0);
 	let audioContext;
 	let audioPing;
@@ -260,7 +240,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	}
 
 	async function getOrCreateListener() {
-		return (audioListener ??= await AudioListener.create({
+		return (audioListener ??= await MicrophoneListener.create({
 			context: getOrCreateAudioContext(),
 			processor: 'listener',
 			callbacks: {
@@ -286,6 +266,42 @@ window.addEventListener('DOMContentLoaded', () => {
 			}
 		}));
 	}
+
+	const recordButton = document.getElementById('record-button');
+	recordButton.addEventListener('click', async () => {
+		const listener = await getOrCreateListener();
+		listener.toggleEnabled();
+
+		setInputsDisabled(listener.isEnabled);
+		recordButton.classList.toggle(CLASS_BUTTON_ACTIVE, listener.isEnabled);
+		if (!listener.isEnabled) {
+			binChart.clear();
+		}
+	});
+
+	const pingButton = document.getElementById('ping-button');
+	let pingButtonEnhanced = false;
+
+	pingButton.addEventListener('click', onPingClick);
+	function onPingClick() {
+		// click is considered a gesture and should allow the context to be created and play normally
+		getOrCreatePing().ping(lastFreq);
+
+		// If the ping was successful, the context should now be running.
+		// Now we can support arbitrary-length pings when the user presses and holds the ping button.
+		// Wrapped in a timeout, as in some browsers (mainly mobile) the state gets updated with a slight delay.
+		setTimeout(() => {
+			if (pingButtonEnhanced || audioContext.state !== 'running') {
+				return;
+			}
+
+			pingButton.removeEventListener('click', onPingClick);
+			pingButton.addEventListener('pointerdown', () => getOrCreatePing().on(lastFreq));
+			pingButton.addEventListener('pointerup', () => getOrCreatePing().off());
+			pingButtonEnhanced = true;
+		}, 100);
+	}
+
 
 	// utils
 

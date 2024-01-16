@@ -6,19 +6,25 @@
 	font: inherit;
 	color: inherit;
 	cursor: inherit;
-}
 
-html {
-	-webkit-text-size-adjust: 100%;
+	user-select: none;
+	-webkit-user-select: none;
+	touch-action: pan-y;
+	-webkit-touch-action: pan-y;
+	-webkit-touch-callout: none;
 }
 
 body {
 	font-family: 'Raleway', sans-serif;
 	font-weight: 400;
-	user-select: none;
-	background: #32322c;
+	background: linear-gradient(350deg, #282823, #48483f), #32322c;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
 	color: #fff;
 	cursor: default;
+
+	text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
 }
 
 a {
@@ -50,15 +56,17 @@ sup {
 }
 
 .layout {
-	position: fixed;
-	inset: 0;
+	position: absolute;
+	inset: 0 0 auto 0;
+	box-sizing: border-box;
+	min-height: 100%;
 	display: flex;
 	flex-flow: column nowrap;
 	align-items: stretch;
 	gap: 1rem;
 	padding: 2rem 1rem;
-	overflow-y: auto;
-	background: linear-gradient(350deg, #282823, #48483f);
+	overflow: visible auto;
+	background: transparent;
 }
 
 .page-footer {
