@@ -1,6 +1,8 @@
+/* eslint-disable max-classes-per-file */
+
 export class SampleProcessor extends AudioWorkletProcessor {
+	isEnabled = false;
 	#callbacks;
-	#isEnabled = false;
 
 	constructor(setup) {
 		super();
@@ -17,10 +19,14 @@ export class SampleProcessor extends AudioWorkletProcessor {
 	}
 
 	process(inputs, _outputs, _params) {
-		if (!(this.isEnabled && inputs.length === 1 && inputs[0].length === 1)) {
+		if (!(this.isEnabled && inputs.length >= 1 && inputs[0].length >= 1)) {
 			return true;
 		}
 
+		// We only expect mono signal.
+		// AudioContext should downmix multi-channel audio source to mono for
+		// us, however if we somehow get multiple streams, we ignore them and
+		// only process the first one.
 		const samples = inputs[0][0];
 		const { length } = samples;
 
@@ -41,6 +47,6 @@ export class SampleProcessor extends AudioWorkletProcessor {
 			constructor() {
 				super(setup);
 			}
-		}
+		};
 	}
 }

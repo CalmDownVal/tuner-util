@@ -8,9 +8,6 @@
 		"start": "rollup --config --environment ENV:dev,SERVER --watch",
 		"lint": "eslint ./src/**/*.js"
 	},
-	"dependencies": {
-		"fft.js": "4.0.4"
-	},
 	"devDependencies": {
 		"@calmdownval/eslint-config": "2.1.4",
 		"@calmdownval/eslint-import-resolver": "1.1.2",

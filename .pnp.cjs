@@ -35,7 +35,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@rollup/plugin-terser", "virtual:675eb5c1c13c9391d3d884e66c21ec15ec48bd8257859099da91c5145be3222b39423aca700ea99487637bbdf1001bc6c65c827755ecc3142bba0704ff467fd3#npm:0.4.4"],\
             ["eslint", "npm:8.51.0"],\
             ["eslint-plugin-import", "virtual:675eb5c1c13c9391d3d884e66c21ec15ec48bd8257859099da91c5145be3222b39423aca700ea99487637bbdf1001bc6c65c827755ecc3142bba0704ff467fd3#npm:2.28.1"],\
-            ["fft.js", "npm:4.0.4"],\
             ["rollup", "npm:4.4.1"],\
             ["rollup-plugin-delete", "npm:2.0.0"],\
             ["rollup-plugin-serve", "npm:2.0.2"]\
@@ -1599,15 +1598,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["fastq", "npm:1.15.0"],\
             ["reusify", "npm:1.0.4"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["fft.js", [\
-        ["npm:4.0.4", {\
-          "packageLocation": "./.yarn/cache/fft.js-npm-4.0.4-e8af1075af-55e4f5ee0a.zip/node_modules/fft.js/",\
-          "packageDependencies": [\
-            ["fft.js", "npm:4.0.4"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -3536,7 +3526,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@rollup/plugin-terser", "virtual:675eb5c1c13c9391d3d884e66c21ec15ec48bd8257859099da91c5145be3222b39423aca700ea99487637bbdf1001bc6c65c827755ecc3142bba0704ff467fd3#npm:0.4.4"],\
             ["eslint", "npm:8.51.0"],\
             ["eslint-plugin-import", "virtual:675eb5c1c13c9391d3d884e66c21ec15ec48bd8257859099da91c5145be3222b39423aca700ea99487637bbdf1001bc6c65c827755ecc3142bba0704ff467fd3#npm:2.28.1"],\
-            ["fft.js", "npm:4.0.4"],\
             ["rollup", "npm:4.4.1"],\
             ["rollup-plugin-delete", "npm:2.0.0"],\
             ["rollup-plugin-serve", "npm:2.0.2"]\

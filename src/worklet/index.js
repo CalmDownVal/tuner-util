@@ -4,13 +4,19 @@ import { createYinPitchDetector } from './YinPitchDetector';
 
 registerProcessor('listener', SampleProcessor.create(port => [
 	createYinPitchDetector({
-		// 50Hz ≈ MIDI 31 ... results in needed window size of ≥ 3920 at 196kHz sample rate
+		// detection frequency range
+		// 50Hz ≈ MIDI 31
 		fMin: 50,
-		// 2500Hz ≈ MIDI 99
+		// 3000Hz ≈ MIDI 102
 		fMax: 2500,
-		windowSize: 4096,
-		windowOffset: 1024,
+
+		// detection window, in seconds
+		windowLength: 0.1,
+		windowOffset: 0.025,
+
+		// detection threshold, dimensionless
 		threshold: 0.3,
+
 		onPitchAvailable(value) {
 			port.postMessage({
 				kind: 'pitch',

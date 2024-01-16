@@ -1249,13 +1249,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fft.js@npm:4.0.4":
-  version: 4.0.4
-  resolution: "fft.js@npm:4.0.4"
-  checksum: 55e4f5ee0afc9ba9b3759c6fe303e0a2f2c1ebb9bc525914de9699b76f55e01da97d61ec30dedde0dfb0a8be3c0711d47af7aca53a1425f9875468254b704c7f
-  languageName: node
-  linkType: hard
-
 "file-entry-cache@npm:^6.0.1":
   version: 6.0.1
   resolution: "file-entry-cache@npm:6.0.1"
@@ -3033,7 +3026,6 @@ __metadata:
     "@rollup/plugin-terser": 0.4.4
     eslint: 8.51.0
     eslint-plugin-import: 2.28.1
-    fft.js: 4.0.4
     rollup: 4.4.1
     rollup-plugin-delete: 2.0.0
     rollup-plugin-serve: 2.0.2

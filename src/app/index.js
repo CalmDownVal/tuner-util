@@ -17,7 +17,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	const CLASS_BUTTON_ACTIVE = 'button--active';
 
 	// TODO: add UI to set custom tuning
-	let TUNING = 440.0;
+	const TUNING = 440.0;
 
 
 	// resources
@@ -252,15 +252,15 @@ window.addEventListener('DOMContentLoaded', () => {
 	let audioListener;
 
 	function getOrCreateAudioContext() {
-		return audioContext ??= new AudioContext();
+		return (audioContext ??= new AudioContext());
 	}
 
 	function getOrCreatePing() {
-		return audioPing ??= Ping.create(getOrCreateAudioContext());
+		return (audioPing ??= Ping.create(getOrCreateAudioContext()));
 	}
 
 	async function getOrCreateListener() {
-		return audioListener ??= await AudioListener.create({
+		return (audioListener ??= await AudioListener.create({
 			context: getOrCreateAudioContext(),
 			processor: 'listener',
 			callbacks: {
@@ -284,7 +284,7 @@ window.addEventListener('DOMContentLoaded', () => {
 					tuneChart.update(freq);
 				}
 			}
-		});
+		}));
 	}
 
 	// utils
@@ -315,5 +315,4 @@ window.addEventListener('DOMContentLoaded', () => {
 		const freqMax = Convert.midiToFrequency(MIDI_MAX, TUNING);
 		return Math.min(Math.max(freq, freqMin), freqMax);
 	}
-
 });

@@ -3,6 +3,9 @@
 	"env": {
 		"browser": true
 	},
+	"parserOptions": {
+		"ecmaVersion": "latest"
+	},
 	"extends": [
 		"@calmdownval/eslint-config",
 		"@calmdownval/eslint-config/import"

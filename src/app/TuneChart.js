@@ -13,7 +13,7 @@ export class TuneChart extends CanvasRenderer {
 			freq < nearest
 				? nearest - Convert.midiToFrequency(midi - 1, tuning)
 				: Convert.midiToFrequency(midi + 1, tuning) - nearest
-			);
+		);
 
 		this.scheduleFrame();
 	}
@@ -74,7 +74,7 @@ function getCenter(p1, p2, p3) {
 	const dx = ax - bx;
 	const dy = ay - by;
 	const vu = vx * uy - vy * ux;
-	if (vu == 0) {
+	if (vu === 0) {
 		return null;
 	}
 
